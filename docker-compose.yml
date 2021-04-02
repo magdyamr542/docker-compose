@@ -1,0 +1,26 @@
+version: "3"
+services:
+  linux-container-1:
+    build: ./
+    container_name: ${LINUX1_CONTAINER_NAME}
+    networks:
+      - linux-network
+    volumes:
+      - ./shared:/home/shared
+    ports:
+      - 1236:1234
+
+  linux-container-2:
+    build: ./
+    container_name: ${LINUX2_CONTAINER_NAME}
+    ports:
+      - 1235:1234
+    volumes:
+      - ./shared:/home/shared
+    networks:
+      - linux-network
+
+networks:
+  linux-network:
+    name: linux-net
+    driver: bridge
